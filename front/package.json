@@ -10,8 +10,5 @@
   "license": "ISC",
   "dependencies": {
     "prettier": "^2.8.0"
-  },
-  "devDependencies": {
-    "tailwindcss": "^3.2.4"
   }
 }
