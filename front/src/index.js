@@ -1,14 +1,19 @@
 /* eslint-disable no-plusplus */
 /* eslint-disable quotes */
-// créer une div 'square' qui contiendra nos 'grid'
-const square = document.createElement("div");
+const b = document.body;
 
-function createGrid() {
+function gridContainer() {
+  const grid = document.createElement("div");
+  grid.classList.add("grid");
+  b.appendChild(grid);
+}
+gridContainer();
+
+function createGridItem() {
   for (let i = 0; i < 256; i++) {
-    const grid = document.createElement("div");
-    grid.classList.add("grid");
-    square.appendChild(grid);
+    const gridItem = document.createElement("div");
+    gridItem.classList.add("grid-item");
+    document.querySelector(".grid").appendChild(gridItem);
   }
 }
-
-createGrid();
+createGridItem();
