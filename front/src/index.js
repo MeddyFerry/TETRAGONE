@@ -10,7 +10,7 @@ function gridContainer() {
 gridContainer();
 
 function createGridItem() {
-  for (let i = 0; i < 256; i++) {
+  for (let i = 0; i < 200; i++) {
     const gridItem = document.createElement("div");
     gridItem.classList.add("grid-item");
     document.querySelector(".grid").appendChild(gridItem);
