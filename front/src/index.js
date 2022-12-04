@@ -18,7 +18,6 @@ function createGridItem() {
   }
 }
 createGridItem();
-
 const scoring = document.querySelector("#score");
 const StartBtn = document.querySelector(".startBtn");
 const Width = 10; // on donne la largeur de la grille
