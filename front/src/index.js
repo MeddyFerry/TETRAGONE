@@ -25,8 +25,6 @@ const Width = 10; // on donne la largeur de la grille
 const squares = Array.from(document.querySelectorAll(".grid-item")); // ici, chaque div contenu dans l'array aura son index spécifique => obligatoire pour positioner le tetromino
 const container = document.querySelector(".grid");
 
-console.log(squares);
-
 const GRID_WIDTH = 10;
 const GRID_HEIGHT = 20;
 const GRID_SIZE = GRID_WIDTH * GRID_HEIGHT;
@@ -84,3 +82,20 @@ const theTetrominoes = [
   oTetromino,
   iTetromino,
 ];
+// position des Tétraminos
+const tetraPosition = 4;
+const current = theTetrominoes[0][0]; // on donne la position de départ de chaque tetromino
+
+/* ICI : rotation des Tétraminos
+ * pour chaque tetromino, on a 4 positions possibles
+ * => créer une fonction qui va permettre de faire tourner les tetrominos
+ * => puis créer une variable qui va stocker la position actuelle du tetromino
+ * => et enfin ajouter une class à chaque tetromino
+ *
+ */
+function draw() {
+  current.forEach((index) => {
+    squares[tetraPosition + index].classList.add("tetromino");
+  });
+}
+draw();
