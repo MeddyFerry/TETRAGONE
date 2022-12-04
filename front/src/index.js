@@ -31,13 +31,21 @@ const GRID_WIDTH = 10;
 const GRID_HEIGHT = 20;
 const GRID_SIZE = GRID_WIDTH * GRID_HEIGHT;
 
+/* ICI :
+ * => array de chacun des mes tetrominos
+ * chaque tetromino est un array de 4 index
+ * chaque index est un array de 2 index
+ * chaque index représente une case de la grille (".grid")
+ */
 const lTetromino = [
-  [1, Width + 1, Width * 2 + 1, 2],
+  [1, Width + 1, Width * 2 + 1, 2], // la forme en L
   [Width, Width + 1, Width + 2, Width * 2 + 2],
   [1, Width + 1, Width * 2 + 1, Width * 2],
   [Width, Width * 2, Width * 2 + 1, Width * 2 + 2],
 ];
+
 const zTetromino = [
+  // la forme en Z
   [0, GRID_WIDTH, GRID_WIDTH + 1, GRID_WIDTH * 2 + 1],
   [GRID_WIDTH + 1, GRID_WIDTH + 2, GRID_WIDTH * 2, GRID_WIDTH * 2 + 1],
   [0, GRID_WIDTH, GRID_WIDTH + 1, GRID_WIDTH * 2 + 1],
@@ -45,6 +53,7 @@ const zTetromino = [
 ];
 
 const tTetromino = [
+  // la forme en T
   [1, GRID_WIDTH, GRID_WIDTH + 1, GRID_WIDTH + 2],
   [1, GRID_WIDTH + 1, GRID_WIDTH + 2, GRID_WIDTH * 2 + 1],
   [GRID_WIDTH, GRID_WIDTH + 1, GRID_WIDTH + 2, GRID_WIDTH * 2 + 1],
@@ -52,6 +61,7 @@ const tTetromino = [
 ];
 
 const oTetromino = [
+  // la forme en  carré
   [0, 1, GRID_WIDTH, GRID_WIDTH + 1],
   [0, 1, GRID_WIDTH, GRID_WIDTH + 1],
   [0, 1, GRID_WIDTH, GRID_WIDTH + 1],
@@ -59,6 +69,7 @@ const oTetromino = [
 ];
 
 const iTetromino = [
+  // la forme en ligne
   [1, GRID_WIDTH + 1, GRID_WIDTH * 2 + 1, GRID_WIDTH * 3 + 1],
   [GRID_WIDTH, GRID_WIDTH + 1, GRID_WIDTH + 2, GRID_WIDTH + 3],
   [1, GRID_WIDTH + 1, GRID_WIDTH * 2 + 1, GRID_WIDTH * 3 + 1],
@@ -73,6 +84,3 @@ const theTetrominoes = [
   oTetromino,
   iTetromino,
 ];
-// position des Tétraminos
-const tetraPosition = 4;
-const current = theTetrominoes[0][0];
