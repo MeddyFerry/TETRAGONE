@@ -83,7 +83,7 @@ const theTetrominoes = [
 ];
 
 // position des Tétraminos
-const tetraPosition = 4;
+let tetraPosition = 4;
 const tetraRotation = 0;
 
 // génération aléatoire des tetrominos
@@ -106,13 +106,22 @@ function draw() {
 }
 draw();
 
-/**
- *
- */
-
 function undraw() {
   current.forEach((index) => {
     squares[tetraPosition + index].classList.remove("tetromino");
   });
 }
 undraw();
+
+// function qui va nous permettre de faire descendre dns nos tetraminos dans une interval definie
+const timer = setInterval(moveDown, 1000);
+
+// move down va nous permettre de faire descendre nos tetraminos
+// => 'undraw' pour enlever les tetraminos de la grille
+// puis on va ajouter la largeur de la grille à la position actuelle du tetramino
+function moveDown() {
+  undraw();
+  tetraPosition += Width;
+  draw();
+}
+moveDown();
