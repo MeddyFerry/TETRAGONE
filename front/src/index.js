@@ -66,7 +66,7 @@ const oTetromino = [
 ];
 
 const iTetromino = [
-  // la forme en ligne
+  // la forme en 'ligne'
   [1, GRID_WIDTH + 1, GRID_WIDTH * 2 + 1, GRID_WIDTH * 3 + 1],
   [GRID_WIDTH, GRID_WIDTH + 1, GRID_WIDTH + 2, GRID_WIDTH + 3],
   [1, GRID_WIDTH + 1, GRID_WIDTH * 2 + 1, GRID_WIDTH * 3 + 1],
@@ -81,14 +81,21 @@ const theTetrominoes = [
   oTetromino,
   iTetromino,
 ];
+
 // position des Tétraminos
 const tetraPosition = 4;
-const current = theTetrominoes[0][0]; // on donne la position de départ de chaque tetromino
+const tetraRotation = 0;
+
+// génération aléatoire des tetrominos
+const random = Math.floor(Math.random() * theTetrominoes.length);
+
+// génération aléatoire de la position du tetrominos
+const current = theTetrominoes[random][tetraRotation];
 
 /* ICI : rotation des Tétraminos
  * pour chaque tetromino, on a 4 positions possibles
- * => créer une fonction qui va permettre de faire tourner les tetrominos
- * => puis créer une variable qui va stocker la position actuelle du tetromino
+ * => créer une fonction qui va permettre de 'dessiner' mes tetrominos
+ * => + créer une variable qui va stocker la position actuelle du tetromino
  * => et enfin ajouter une class à chaque tetromino
  *
  */
@@ -98,3 +105,14 @@ function draw() {
   });
 }
 draw();
+
+/**
+ *
+ */
+
+function undraw() {
+  current.forEach((index) => {
+    squares[tetraPosition + index].classList.remove("tetromino");
+  });
+}
+undraw();
