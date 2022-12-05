@@ -1,3 +1,4 @@
+/* eslint-disable no-use-before-define */
 /* eslint-disable no-plusplus */
 /* eslint-disable quotes */
 
@@ -18,15 +19,14 @@ function createGridItem() {
   }
 }
 createGridItem();
-const scoring = document.querySelector("#score");
-const StartBtn = document.querySelector(".startBtn");
+// const scoring = document.querySelector("#score");
+// const StartBtn = document.querySelector(".startBtn");
+// const container = document.querySelector(".grid");
+
 const Width = 10; // on donne la largeur de la grille
 const squares = Array.from(document.querySelectorAll(".grid-item")); // ici, chaque div contenu dans l'array aura son index spécifique => obligatoire pour positioner le tetromino
-const container = document.querySelector(".grid");
 
-const GRID_WIDTH = 10;
-const GRID_HEIGHT = 20;
-const GRID_SIZE = GRID_WIDTH * GRID_HEIGHT;
+const width = 10;
 
 /* ICI :
  * => array de chacun des mes tetrominos
@@ -43,34 +43,34 @@ const lTetromino = [
 
 const zTetromino = [
   // la forme en Z
-  [0, GRID_WIDTH, GRID_WIDTH + 1, GRID_WIDTH * 2 + 1],
-  [GRID_WIDTH + 1, GRID_WIDTH + 2, GRID_WIDTH * 2, GRID_WIDTH * 2 + 1],
-  [0, GRID_WIDTH, GRID_WIDTH + 1, GRID_WIDTH * 2 + 1],
-  [GRID_WIDTH + 1, GRID_WIDTH + 2, GRID_WIDTH * 2, GRID_WIDTH * 2 + 1],
+  [0, width, width + 1, width * 2 + 1],
+  [width + 1, width + 2, width * 2, width * 2 + 1],
+  [0, width, width + 1, width * 2 + 1],
+  [width + 1, width + 2, width * 2, width * 2 + 1],
 ];
 
 const tTetromino = [
   // la forme en T
-  [1, GRID_WIDTH, GRID_WIDTH + 1, GRID_WIDTH + 2],
-  [1, GRID_WIDTH + 1, GRID_WIDTH + 2, GRID_WIDTH * 2 + 1],
-  [GRID_WIDTH, GRID_WIDTH + 1, GRID_WIDTH + 2, GRID_WIDTH * 2 + 1],
-  [1, GRID_WIDTH, GRID_WIDTH + 1, GRID_WIDTH * 2 + 1],
+  [1, width, width + 1, width + 2],
+  [1, width + 1, width + 2, width * 2 + 1],
+  [width, width + 1, width + 2, width * 2 + 1],
+  [1, width, width + 1, width * 2 + 1],
 ];
 
 const oTetromino = [
   // la forme en  carré
-  [0, 1, GRID_WIDTH, GRID_WIDTH + 1],
-  [0, 1, GRID_WIDTH, GRID_WIDTH + 1],
-  [0, 1, GRID_WIDTH, GRID_WIDTH + 1],
-  [0, 1, GRID_WIDTH, GRID_WIDTH + 1],
+  [0, 1, width, width + 1],
+  [0, 1, width, width + 1],
+  [0, 1, width, width + 1],
+  [0, 1, width, width + 1],
 ];
 
 const iTetromino = [
   // la forme en 'ligne'
-  [1, GRID_WIDTH + 1, GRID_WIDTH * 2 + 1, GRID_WIDTH * 3 + 1],
-  [GRID_WIDTH, GRID_WIDTH + 1, GRID_WIDTH + 2, GRID_WIDTH + 3],
-  [1, GRID_WIDTH + 1, GRID_WIDTH * 2 + 1, GRID_WIDTH * 3 + 1],
-  [GRID_WIDTH, GRID_WIDTH + 1, GRID_WIDTH + 2, GRID_WIDTH + 3],
+  [1, width + 1, width * 2 + 1, width * 3 + 1],
+  [width, width + 1, width + 2, width + 3],
+  [1, width + 1, width * 2 + 1, width * 3 + 1],
+  [width, width + 1, width + 2, width + 3],
 ];
 
 // tableau de tableaux qui contient les 5 formes de tetrominos
@@ -83,14 +83,12 @@ const theTetrominoes = [
 ];
 
 // position des Tétraminos
-let tetraPosition = 4;
-const tetraRotation = 0;
+let currentPosition = 4;
+const currentRotation = 0;
 
-// génération aléatoire des tetrominos
-const random = Math.floor(Math.random() * theTetrominoes.length);
-
-// génération aléatoire de la position du tetrominos
-const current = theTetrominoes[random][tetraRotation];
+// randomly select a Tetromino and its first rotation
+let random = Math.floor(Math.random() * theTetrominoes.length);
+let current = theTetrominoes[random][currentRotation];
 
 /* ICI : rotation des Tétraminos
  * pour chaque tetromino, on a 4 positions possibles
@@ -99,29 +97,48 @@ const current = theTetrominoes[random][tetraRotation];
  * => et enfin ajouter une class à chaque tetromino
  *
  */
+
 function draw() {
   current.forEach((index) => {
-    squares[tetraPosition + index].classList.add("tetromino");
+    squares[currentPosition + index].classList.add("tetromino");
   });
 }
-draw();
-
 function undraw() {
   current.forEach((index) => {
-    squares[tetraPosition + index].classList.remove("tetromino");
+    squares[currentPosition + index].classList.remove("tetromino");
   });
 }
-undraw();
 
 // function qui va nous permettre de faire descendre dns nos tetraminos dans une interval definie
-const timer = setInterval(moveDown, 1000);
+const timer = setInterval(moveDown, 300);
 
 // move down va nous permettre de faire descendre nos tetraminos
 // => 'undraw' pour enlever les tetraminos de la grille
 // puis on va ajouter la largeur de la grille à la position actuelle du tetramino
+// move down function
 function moveDown() {
-  undraw();
-  tetraPosition += Width;
+  if (
+    !current.some((index) =>
+      squares[currentPosition + index + width].classList.contains("taken")
+    )
+  ) {
+    undraw();
+    currentPosition += width;
+    draw();
+  } else {
+    freeze();
+  }
+}
+
+// freeze function
+function freeze() {
+  current.forEach((index) =>
+    squares[currentPosition + index].classList.add("taken")
+  );
+  // start a new tetromino falling
+  random = nextRandom;
+  nextRandom = Math.floor(Math.random() * theTetrominoes.length);
+  current = theTetrominoes[random][currentRotation];
+  currentPosition = 4;
   draw();
 }
-moveDown();

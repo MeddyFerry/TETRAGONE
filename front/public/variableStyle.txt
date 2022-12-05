@@ -1,5 +1,28 @@
-#EB5E28
-#252422
-#403D39
-#CCC5B9
-#FFFCF2
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="./css/style.css" rel="stylesheet" />
+    <link
+      href="https://fonts.cdnfonts.com/css/clash-display"
+      rel="stylesheet"
+    />
+    <style>
+      @import url("https://fonts.cdnfonts.com/css/clash-display");
+    </style>
+
+    <title>TETRAGONE</title>
+    <script src="index.js" async></script>
+  </head>
+
+  <body>
+    <h1 class="text-center bg-red-200">TETRAGONE</h1>
+    <h2>
+      Score :
+      <span id="score"> 0 </span>
+    </h2>
+    <button class="startBtn" role="button">play/pause</button>
+  </body>
+</html>
