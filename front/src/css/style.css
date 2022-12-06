@@ -70,7 +70,7 @@ background-color: #252422;
 border: 4px solid #f5cb5c;
 }
 
-.grid-item {
+.grid div {
 height: 20px;
 width: 20px;
 }
