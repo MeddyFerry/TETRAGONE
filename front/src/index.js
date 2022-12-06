@@ -80,6 +80,14 @@ function undraw() {
 // function qui va nous permettre de faire descendre dns nos tetraminos dans une interval definie
 const timer = setInterval(moveDown, 300);
 
+// assign function to keycodes
+function control(e) {
+  if (e.keyCode === 37) {
+    moveLeft();
+  }
+}
+document.addEventListener("keyup", control);
+
 // move down va nous permettre de faire descendre nos tetraminos
 // => 'undraw' pour enlever les tetraminos de la grille
 // puis on va ajouter la largeur de la grille à la position actuelle du tetramino
