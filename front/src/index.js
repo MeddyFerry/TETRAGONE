@@ -6,7 +6,11 @@
 /* eslint-disable quotes */
 const grid = document.querySelector(".grid");
 const squares = Array.from(document.querySelectorAll(".grid div"));
+const scoreDisplay = document.querySelector("#score");
+const startBtn = document.querySelector(".startBtn");
+let timerId;
 const width = 10;
+let nextRandom = 0;
 
 // The Tetrominoes
 const lTetromino = [
@@ -77,9 +81,6 @@ function undraw() {
   });
 }
 
-// function qui va nous permettre de faire descendre dns nos tetraminos dans une interval definie
-const timer = setInterval(moveDown, 300);
-
 // assign function to keycodes
 function control(e) {
   if (e.keyCode === 37) {
@@ -116,10 +117,12 @@ function freeze() {
     current.forEach((index) =>
       squares[currentPosition + index].classList.add("taken")
     );
-    random = Math.floor(Math.random() * theTetrominoes.length);
+    random = nextRandom;
+    nextRandom = Math.floor(Math.random() * theTetrominoes.length);
     current = theTetrominoes[random][currentRotation];
     currentPosition = 4;
     draw();
+    displayShape();
   }
 }
 
@@ -182,3 +185,46 @@ function rotate() {
   current = theTetrominoes[random][currentRotation];
   draw();
 }
+
+// affiche moi le prochain tetramino
+const displaySquares = document.querySelectorAll(".mini-grid div");
+const displayWidth = 4;
+const displayIndex = 0;
+
+// les tetramino sans rotation
+const upNextTetrominoes = [
+  [1, displayWidth + 1, displayWidth * 2 + 1, 2], // lTetromino
+  [0, displayWidth, displayWidth + 1, displayWidth * 2 + 1], // zTetromino
+  [1, displayWidth, displayWidth + 1, displayWidth + 2], // tTetromino
+  [0, 1, displayWidth, displayWidth + 1], // oTetromino
+  [1, displayWidth + 1, displayWidth * 2 + 1, displayWidth * 3 + 1], // iTetromino
+];
+
+// affiche la forme du prochain tetramino
+function displayShape() {
+  // remove any trace of a tetromino form the entire grid
+  displaySquares.forEach((square) => {
+    square.classList.remove("tetromino");
+    // square.style.backgroundColor = ''
+  });
+  upNextTetrominoes[nextRandom].forEach((index) => {
+    displaySquares[displayIndex + index].classList.add("tetromino");
+    //  displaySquares[displayIndex + index].style.backgroundColor =
+    //  colors[nextRandom];
+  });
+}
+
+// button
+startBtn.addEventListener("click", () => {
+  if (timerId) {
+    clearInterval(timerId);
+    timerId = null;
+  } else {
+    draw();
+    timerId = setInterval(moveDown, 300);
+    nextRandom = Math.floor(Math.random() * theTetrominoes.length);
+    displayShape();
+  }
+});
+
+// score
