@@ -84,6 +84,12 @@ const timer = setInterval(moveDown, 300);
 function control(e) {
   if (e.keyCode === 37) {
     moveLeft();
+  } else if (e.keyCode === 38) {
+    // rotate ()
+  } else if (e.keyCode === 39) {
+    moveRight();
+  } else if (e.keyCode === 40) {
+    // moveDown();
   }
 }
 document.addEventListener("keyup", control);
@@ -139,6 +145,22 @@ function moveLeft() {
     )
   ) {
     currentPosition += 1;
+  }
+  draw();
+}
+// même logique qu'au dessus
+function moveRight() {
+  undraw();
+  const isAtRightEdge = current.some(
+    (index) => (currentPosition + index) % width === width - 1
+  );
+  if (!isAtRightEdge) currentPosition += 1;
+  if (
+    current.some((index) =>
+      squares[currentPosition + index].classList.contains("taken")
+    )
+  ) {
+    currentPosition -= 1;
   }
   draw();
 }
