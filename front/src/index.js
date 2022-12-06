@@ -53,7 +53,7 @@ const theTetrominoes = [
 ];
 
 let currentPosition = 4;
-const currentRotation = 0;
+let currentRotation = 0;
 
 let random = Math.floor(Math.random() * theTetrominoes.length);
 let current = theTetrominoes[random][currentRotation];
@@ -85,7 +85,7 @@ function control(e) {
   if (e.keyCode === 37) {
     moveLeft();
   } else if (e.keyCode === 38) {
-    // rotate ()
+    rotate();
   } else if (e.keyCode === 39) {
     moveRight();
   } else if (e.keyCode === 40) {
@@ -162,5 +162,23 @@ function moveRight() {
   ) {
     currentPosition -= 1;
   }
+  draw();
+}
+
+/**
+ * rotation function
+ * pour faire la rotation, on va utiliser un algo
+ * qui va  incrémenter ou désincrémenter la valeur de currentRotation d'un cran
+ *
+ */
+
+function rotate() {
+  undraw();
+  currentRotation++;
+  // si la valeur de currentRotation est supérieure à 3, on la remet à 0
+  if (currentRotation === current.length) {
+    currentRotation = 0;
+  }
+  current = theTetrominoes[random][currentRotation];
   draw();
 }
