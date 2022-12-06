@@ -1,3 +1,6 @@
+/* eslint-disable comma-dangle */
+/* eslint-disable function-paren-newline */
+/* eslint-disable implicit-arrow-linebreak */
 /* eslint-disable no-use-before-define */
 /* eslint-disable no-plusplus */
 /* eslint-disable quotes */
@@ -104,4 +107,30 @@ function freeze() {
     currentPosition = 4;
     draw();
   }
+}
+
+/**
+ * bouger le tétramino vers un autre carré indexé de notre grille
+ * Ex : si je suis a l'index 10, je ne peux pas  aller à gauche
+ * => écrire une fonction qui va vérifier si je suis à l'index 10/ 20/ 30/ 40
+ * qui correpsondent à la bordure gauche de notre grille
+ * la fonction va undraw et draw le tétramino pour le deplacer
+ */
+
+function moveLeft() {
+  undraw();
+  // je définis la bordure gauche de ma grille
+  // some() va vérifier si au moins une des valeurs de mon tableau est true
+  const isAtLeftEdge = current.some(
+    (index) => (currentPosition + index) % width === 0
+  );
+  if (!isAtLeftEdge) currentPosition -= 1;
+  if (
+    current.some((index) =>
+      squares[currentPosition + index].classList.contains("taken")
+    )
+  ) {
+    currentPosition += 1;
+  }
+  draw();
 }
