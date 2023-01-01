@@ -10,9 +10,16 @@ const btn = document.createElement("div");
 btn.textContent = "play";
 btn.classList.add("startBtn");
 b.append(btn);
-// btn = true;
-// const tern = btn ? "play" : "pause";
 
+const togglePlayPause = () => {
+  if (btn.innerText === "play") {
+    btn.innerText = "pause";
+  } else {
+    btn.innerText = "play";
+  }
+};
+
+btn.addEventListener("click", togglePlayPause);
 const grid = document.querySelector(".grid");
 let squares = Array.from(document.querySelectorAll(".grid div"));
 const scoreDisplay = document.querySelector("#score");
