@@ -5,6 +5,14 @@
 /* eslint-disable no-use-before-define */
 /* eslint-disable no-plusplus */
 /* eslint-disable quotes */
+const b = document.body;
+const btn = document.createElement("div");
+btn.textContent = "play";
+btn.classList.add("startBtn");
+b.append(btn);
+// btn = true;
+// const tern = btn ? "play" : "pause";
+
 const grid = document.querySelector(".grid");
 let squares = Array.from(document.querySelectorAll(".grid div"));
 const scoreDisplay = document.querySelector("#score");
